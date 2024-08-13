@@ -23,7 +23,9 @@ export default function RootLayout({
     <html lang="ja">
       <body className={notoSansJP.className}>
         <Header />
-        <main className="max-w-2xl mx-auto">{children}</main>
+        <main className="bg-blue-100 px-2">
+          <div className="max-w-2xl mx-auto">{children}</div>
+        </main>
         <Footer />
       </body>
     </html>
