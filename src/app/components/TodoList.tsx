@@ -3,7 +3,7 @@ import React from "react";
 const TodoList = () => {
   return (
     <ul className="pb-2">
-      <li className="flex flex-col bg-white pt-5 pb-2 px-4 mb-4">
+      <li className="flex flex-col bg-white pt-5 pb-2 px-4 mb-4 shadow-lg">
         <div className="flex justify-between">
           <div className="flex justify-start items-center gap-2">
             <select className="border p-2 rounded-md">
@@ -15,13 +15,17 @@ const TodoList = () => {
           </div>
 
           <div className="flex justify-start items-center gap-2">
-            <button className="bg-green-600 text-slate-50 p-2">編集</button>
-            <button className="bg-red-600 text-slate-50 p-2">削除</button>
+            <button className="bg-green-600 text-slate-50 p-2 hover:bg-green-300 hover:text-gray-900 transition-all duration-100">
+              編集
+            </button>
+            <button className="bg-red-600 text-slate-50 p-2 hover:bg-red-300 hover:text-gray-900 transition-all duration-100">
+              削除
+            </button>
           </div>
         </div>
         <small className="text-end pt-2">最終更新日時：2024/12/12 12:12</small>
       </li>
-      <li className="flex flex-col bg-white pt-5 pb-2 px-4 mb-4">
+      <li className="flex flex-col bg-white pt-5 pb-2 px-4 mb-4 shadow-lg">
         <div className="flex justify-between">
           <div className="flex justify-start items-center gap-2">
             <select className="border p-2 rounded-md">
@@ -33,13 +37,17 @@ const TodoList = () => {
           </div>
 
           <div className="flex justify-start items-center gap-2">
-            <button className="bg-green-600 text-slate-50 p-2">編集</button>
-            <button className="bg-red-600 text-slate-50 p-2">削除</button>
+            <button className="bg-green-600 text-slate-50 p-2 hover:bg-green-300 hover:text-gray-900 transition-all duration-100">
+              編集
+            </button>
+            <button className="bg-red-600 text-slate-50 p-2 hover:bg-red-300 hover:text-gray-900 transition-all duration-100">
+              削除
+            </button>
           </div>
         </div>
         <small className="text-end pt-2">最終更新日時：2024/12/12 12:12</small>
       </li>
-      <li className="flex flex-col bg-white pt-5 pb-2 px-4 mb-4">
+      <li className="flex flex-col bg-white pt-5 pb-2 px-4 mb-4 shadow-lg">
         <div className="flex justify-between">
           <div className="flex justify-start items-center gap-2">
             <select className="border p-2 rounded-md">
@@ -51,8 +59,12 @@ const TodoList = () => {
           </div>
 
           <div className="flex justify-start items-center gap-2">
-            <button className="bg-green-600 text-slate-50 p-2">編集</button>
-            <button className="bg-red-600 text-slate-50 p-2">削除</button>
+            <button className="bg-green-600 text-slate-50 p-2 hover:bg-green-300 hover:text-gray-900 transition-all duration-100">
+              編集
+            </button>
+            <button className="bg-red-600 text-slate-50 p-2 hover:bg-red-300 hover:text-gray-900 transition-all duration-100">
+              削除
+            </button>
           </div>
         </div>
         <small className="text-end pt-2">最終更新日時：2024/12/12 12:12</small>
