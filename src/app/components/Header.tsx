@@ -11,9 +11,9 @@ const Header = () => {
           <nav className="flex gap-3 text-white">
             <Link
               className="p-2 rounded-2xl transition-all duration-100 ease-linear hover:bg-white hover:text-blue-500"
-              href="/"
+              href="/todos"
             >
-              ホーム
+              一覧
             </Link>
             <Link
               className="p-2 rounded-2xl transition-all duration-100 ease-linear hover:bg-white hover:text-blue-500"

@@ -4,8 +4,7 @@ import TodoList from "./components/TodoList";
 export default function Home() {
   return (
     <div>
-      <FilterTodo />
-      <TodoList />
+      <div>新規登録</div>
     </div>
   );
 }
