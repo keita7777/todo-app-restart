@@ -14,7 +14,7 @@ const page = () => {
 
       <textarea className="border p-2 outline-none" />
       <button className="bg-blue-500 text-slate-50 p-2 hover:bg-blue-300 hover:text-gray-900 transition-all duration-100">
-        追加
+        更新
       </button>
     </form>
   );
