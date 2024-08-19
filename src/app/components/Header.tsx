@@ -23,17 +23,25 @@ const Header = () => {
             </Link>
             <Link
               className="p-2 rounded-2xl transition-all duration-100 ease-linear hover:bg-white hover:text-blue-500"
-              href="/"
+              href="/login"
+            >
+              ログイン
+            </Link>
+            <Link
+              className="p-2 rounded-2xl transition-all duration-100 ease-linear hover:bg-white hover:text-blue-500"
+              href="/logout"
             >
               ログアウト
             </Link>
           </nav>
-          <Image
-            src="/profile_icon_default.png"
-            alt=""
-            width={60}
-            height={60}
-          />
+          <Link href="/profile">
+            <Image
+              src="/profile_icon_default.png"
+              alt=""
+              width={60}
+              height={60}
+            />
+          </Link>
         </div>
       </div>
     </header>
