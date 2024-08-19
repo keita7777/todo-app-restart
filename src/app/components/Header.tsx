@@ -7,7 +7,7 @@ import React from "react";
 
 const Header = () => {
   const { data: session } = useSession();
-  // console.log(session);
+  console.log(session?.user?.image);
 
   return (
     <header className="bg-blue-500 py-2 px-2">
@@ -37,7 +37,12 @@ const Header = () => {
                 </Link>
                 <Link href="/profile">
                   <Image
-                    src="/profile_icon_default.png"
+                    className="rounded-full"
+                    src={
+                      session
+                        ? `${session.user?.image}`
+                        : `/profile_icon_default.png`
+                    }
                     alt=""
                     width={60}
                     height={60}
