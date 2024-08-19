@@ -39,9 +39,7 @@ const Header = () => {
                   <Image
                     className="rounded-full"
                     src={
-                      session
-                        ? `${session.user?.image}`
-                        : `/profile_icon_default.png`
+                      `${session.user?.image}` || `/profile_icon_default.png`
                     }
                     alt=""
                     width={60}
