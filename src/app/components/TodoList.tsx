@@ -1,27 +1,23 @@
+"use client";
+
 import { Todo } from "@prisma/client";
 import Link from "next/link";
 import React from "react";
+import { useRecoilValue, useRecoilValueLoadable } from "recoil";
+import { todoListSelector } from "../recoil/todoListState";
 
-async function fetchAllTodos() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/todo`, {
-    cache: "no-store",
-    method: "GET",
-  });
+const TodoList = () => {
+  const todosLoadable = useRecoilValueLoadable(todoListSelector);
 
-  if (!res.ok) {
-    throw new Error(`サーバーエラー一覧: ${res.status} ${res.statusText}`);
+  if (todosLoadable.state === "loading") {
+    return <div>Loading...</div>;
   }
 
-  try {
-    const data = await res.json();
-    return data.todos;
-  } catch (error) {
-    console.error("JSONのパースに失敗しました:", error);
+  if (todosLoadable.state === "hasError") {
+    return <div>Error: {todosLoadable.contents.message}</div>;
   }
-}
 
-const TodoList = async () => {
-  const todos = await fetchAllTodos();
+  const todos = todosLoadable.contents;
 
   return (
     <ul className="pb-2">

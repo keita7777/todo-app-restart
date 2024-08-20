@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import NextAuthProvider from "@/providers/NextAuth";
+import RecoilProvider from "./recoil/recoilProvider";
 
 const notoSansJP = Noto_Sans_JP({
   subsets: ["latin"],
@@ -24,11 +25,13 @@ export default function RootLayout({
     <html lang="ja">
       <body className={notoSansJP.className}>
         <NextAuthProvider>
-          <Header />
-          <main className="bg-blue-100 px-2 py-2">
-            <div className="max-w-2xl mx-auto">{children}</div>
-          </main>
-          <Footer />
+          <RecoilProvider>
+            <Header />
+            <main className="bg-blue-100 px-2 py-2">
+              <div className="max-w-2xl mx-auto">{children}</div>
+            </main>
+            <Footer />
+          </RecoilProvider>
         </NextAuthProvider>
       </body>
     </html>
