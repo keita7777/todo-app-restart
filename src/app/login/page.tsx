@@ -6,9 +6,12 @@ import React from "react";
 const page = () => {
   return (
     <div>
-      <div>
+      <div className="flex flex-col">
         <button onClick={() => signIn("github", { callbackUrl: "/todos" })}>
-          サインイン
+          githubサインイン
+        </button>
+        <button onClick={() => signIn("google", { callbackUrl: "/todos" })}>
+          googleサインイン
         </button>
       </div>
     </div>
