@@ -35,7 +35,9 @@ const page = async ({ params }: { params: { id: string } }) => {
           <p className="ml-3">{todo.title}</p>
         </div>
         <p className="mt-2">{todo.content}</p>
-        <small className="text-end pt-2">最終更新日時：{todo.createdAt}</small>
+        <small className="text-end pt-2">
+          最終更新日時：{String(new Date(todo.createdAt).toLocaleString())}
+        </small>
         <div className="flex justify-center items-center gap-2">
           <Link
             href={`/todos/${todo.id}/edit`}
