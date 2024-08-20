@@ -4,7 +4,7 @@ import React from "react";
 
 async function fetchAllTodos() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/todo`, {
-    cache: "no-cache",
+    cache: "no-store",
     method: "GET",
   });
 
@@ -30,7 +30,7 @@ const TodoList = async () => {
           key={todo.id}
           className="flex flex-col bg-white p-4 mb-4 shadow-lg hover:shadow-none hover:translate-y-1 transition-all duration-100"
         >
-          <Link href="/todos/1" className="flex flex-col">
+          <Link href={`/todos/${todo.id}`} className="flex flex-col">
             <div className="flex pb-2 border-b-2">
               <span className="p-1 bg-blue-100 rounded-md">
                 {todo.statusName}

@@ -3,6 +3,7 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useRef } from "react";
+import { getStatusName } from "../lib/getStatusName";
 // import { getStatusName } from "../utils/getStatusName";
 
 const postBlog = async (
@@ -46,7 +47,7 @@ const Page = () => {
       titleRef.current?.value,
       contentRef.current?.value,
       statusRef.current?.value,
-      statusRef.current?.value,
+      getStatusName(statusRef.current?.value),
       user?.id
     );
 

@@ -7,7 +7,6 @@ import React from "react";
 
 const Header = () => {
   const { data: session } = useSession();
-  console.log(session?.user?.image);
 
   return (
     <header className="bg-blue-500 py-2 px-2">
