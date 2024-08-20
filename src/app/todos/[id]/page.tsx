@@ -1,4 +1,5 @@
 import DeleteBotton from "@/app/components/DeleteBotton";
+import { getStatusStyle } from "@/app/lib/getStatusStyle";
 import Link from "next/link";
 import React from "react";
 
@@ -31,7 +32,9 @@ const page = async ({ params }: { params: { id: string } }) => {
     <>
       <div className="flex flex-col bg-white pt-5 pb-2 px-4 my-4 shadow-lg">
         <div className="flex items-center border-b-2 pb-2">
-          <span className="p-1 bg-blue-100 rounded-md">{todo.statusName}</span>
+          <span className={`p-1 rounded-md ${getStatusStyle(todo.statusId)}`}>
+            {todo.statusName}
+          </span>
           <p className="ml-3">{todo.title}</p>
         </div>
         <p className="mt-2">{todo.content}</p>

@@ -1,6 +1,7 @@
 import { Todo } from "@prisma/client";
 import Link from "next/link";
 import React from "react";
+import { getStatusStyle } from "../lib/getStatusStyle";
 
 async function fetchAllTodos() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/todo`, {
@@ -32,7 +33,9 @@ const TodoList = async () => {
         >
           <Link href={`/todos/${todo.id}`} className="flex flex-col">
             <div className="flex pb-2 border-b-2">
-              <span className="p-1 bg-blue-100 rounded-md">
+              <span
+                className={`p-1 rounded-md ${getStatusStyle(todo.statusId)}`}
+              >
                 {todo.statusName}
               </span>
               <p className="p-1 ml-3">{todo.title}</p>
