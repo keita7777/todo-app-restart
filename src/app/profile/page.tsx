@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import React from "react";
 
-const page = () => {
+const ProfilePage = () => {
   const { data: session } = useSession();
   console.log(session?.user);
 
@@ -28,4 +28,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default ProfilePage;
