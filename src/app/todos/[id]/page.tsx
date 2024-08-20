@@ -37,7 +37,7 @@ const page = async ({ params }: { params: { id: string } }) => {
         <small className="text-end pt-2">最終更新日時：{todo.createdAt}</small>
         <div className="flex justify-center items-center gap-2">
           <Link
-            href={`/todos/1/edit`}
+            href={`/todos/${todo.id}/edit`}
             className="bg-green-600 text-slate-50 p-2 hover:bg-green-300 hover:text-gray-900 transition-all duration-100"
           >
             編集
