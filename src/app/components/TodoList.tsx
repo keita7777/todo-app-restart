@@ -3,7 +3,7 @@ import Link from "next/link";
 import React from "react";
 
 async function fetchAllTodos() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/todo`, {
+  const res = await fetch(`https://todo-app-restart.vercel.app/api/todo`, {
     cache: "no-cache",
     method: "GET",
   });
