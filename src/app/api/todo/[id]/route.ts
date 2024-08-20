@@ -45,10 +45,10 @@ export const PUT = async (req: Request, res: NextResponse) => {
   try {
     const id: string = req.url.split("/todo/")[1];
 
-    const { title, content } = await req.json();
+    const { title, content, statusId, statusName } = await req.json();
     await main();
     const todo = await prisma.todo.update({
-      data: { title, content },
+      data: { title, content, statusId, statusName },
       where: { id },
     });
     return NextResponse.json({ message: "Success", todo }, { status: 200 });
