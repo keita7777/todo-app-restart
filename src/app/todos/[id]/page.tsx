@@ -1,3 +1,4 @@
+import DeleteBotton from "@/app/components/DeleteBotton";
 import Link from "next/link";
 import React from "react";
 
@@ -42,12 +43,7 @@ const page = async ({ params }: { params: { id: string } }) => {
           >
             編集
           </Link>
-          <Link
-            href={`/todos/1/edit`}
-            className="bg-red-600 text-slate-50 p-2 hover:bg-red-300 hover:text-gray-900 transition-all duration-100"
-          >
-            削除
-          </Link>
+          <DeleteBotton id={todo.id} />
         </div>
       </div>
     </>
