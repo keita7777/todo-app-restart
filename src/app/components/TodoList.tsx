@@ -1,7 +1,11 @@
+"use client";
+
 import { Todo } from "@prisma/client";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 import { getStatusStyle } from "../lib/getStatusStyle";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { filteredTodoListAtom, todoListState } from "../atoms/todoListAtom";
 
 async function fetchAllTodos() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/todo`, {
@@ -21,12 +25,21 @@ async function fetchAllTodos() {
   }
 }
 
-const TodoList = async () => {
-  const todos = await fetchAllTodos();
+const TodoList = () => {
+  const setTodoListState = useSetRecoilState(todoListState);
+  const sortedTodoList = useRecoilValue(filteredTodoListAtom);
+
+  useEffect(() => {
+    const getTodoListData = async () => {
+      const todos = await fetchAllTodos();
+      setTodoListState(todos);
+    };
+    getTodoListData();
+  }, []);
 
   return (
     <ul className="pb-2">
-      {todos.map((todo: Todo) => (
+      {sortedTodoList.map((todo: Todo) => (
         <li
           key={todo.id}
           className="flex flex-col bg-white p-4 mb-4 shadow-lg hover:shadow-none hover:translate-y-1 transition-all duration-100"
