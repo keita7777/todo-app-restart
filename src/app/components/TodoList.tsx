@@ -5,7 +5,7 @@ import Link from "next/link";
 import React, { useEffect } from "react";
 import { getStatusStyle } from "../lib/getStatusStyle";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { filteredTodoListAtom, todoListState } from "../atoms/todoListAtom";
+import { filteredTodoListState, todoListState } from "../atoms/todoListAtom";
 
 async function fetchAllTodos() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/todo`, {
@@ -27,7 +27,7 @@ async function fetchAllTodos() {
 
 const TodoList = () => {
   const setTodoListState = useSetRecoilState(todoListState);
-  const sortedTodoList = useRecoilValue(filteredTodoListAtom);
+  const sortedTodoList = useRecoilValue(filteredTodoListState);
 
   useEffect(() => {
     const getTodoListData = async () => {

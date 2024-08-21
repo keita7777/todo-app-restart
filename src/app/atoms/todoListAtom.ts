@@ -11,7 +11,7 @@ export const filterSelectState = atom<string>({
   default: "",
 });
 
-export const filteredTodoListAtom = selector<Todo[]>({
+export const filteredTodoListState = selector<Todo[]>({
   key: "filteredTodoList",
   get: ({ get }) => {
     const todoList = get(todoListState);
