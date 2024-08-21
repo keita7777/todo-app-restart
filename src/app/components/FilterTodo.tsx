@@ -2,26 +2,33 @@
 
 import React, { useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { filterSelectState } from "../atoms/todoListAtom";
+import { filterSelectState, sortSelectState } from "../atoms/todoListAtom";
 
 const FilterTodo = () => {
-  const [selectValue, setSelectValue] = useState("");
+  const [selectFilterValue, setSelectFilterValue] = useState("");
+  const [selectSortValue, setSelectSortValue] = useState("");
   const setFilterSelectState = useSetRecoilState(filterSelectState);
+  const setSortSelectState = useSetRecoilState(sortSelectState);
 
   useEffect(() => {
-    setFilterSelectState(selectValue);
-  }, [selectValue]);
+    setFilterSelectState(selectFilterValue);
+    setSortSelectState(selectSortValue);
+  }, [selectFilterValue, selectSortValue]);
 
   return (
     <div className="grid py-10 grid-cols-3 gap-2">
-      {/* <select className="border p-2 rounded-md">
+      <select
+        value={selectSortValue}
+        onChange={(e) => setSelectSortValue(e.target.value)}
+        className="border p-2 rounded-md"
+      >
         <option value="">並び替える</option>
         <option value="date_asc">更新日時（昇順）</option>
         <option value="date_desc">更新日時（降順）</option>
-      </select> */}
+      </select>
       <select
-        value={selectValue}
-        onChange={(e) => setSelectValue(e.target.value)}
+        value={selectFilterValue}
+        onChange={(e) => setSelectFilterValue(e.target.value)}
         className="border p-2 rounded-md"
       >
         <option value="">絞り込む</option>
