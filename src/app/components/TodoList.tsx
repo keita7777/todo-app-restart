@@ -32,8 +32,14 @@ const TodoList = () => {
   useEffect(() => {
     const getTodoListData = async () => {
       const todos = await fetchAllTodos();
-      setTodoListState(todos);
+      //読み込み時は降順にリストを並べる
+      const descTodos = todos.sort(
+        (a: Todo, b: Todo) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      );
+      setTodoListState(descTodos);
     };
+
     getTodoListData();
   }, []);
 
