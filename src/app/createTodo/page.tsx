@@ -4,6 +4,9 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useRef } from "react";
 import { getStatusName } from "../lib/getStatusName";
+import { useRecoilState } from "recoil";
+import { loadingState } from "../atoms/loadingAtom";
+import LoadingSpinner from "../components/LoadingSpinner";
 // import { getStatusName } from "../utils/getStatusName";
 
 const postBlog = async (
@@ -32,6 +35,7 @@ const postBlog = async (
 };
 
 const Page = () => {
+  const [isLoading, setIsLoading] = useRecoilState(loadingState);
   const titleRef = useRef<HTMLInputElement | null>(null);
   const contentRef = useRef<HTMLTextAreaElement | null>(null);
   const statusRef = useRef<HTMLSelectElement | null>(null);
@@ -43,6 +47,8 @@ const Page = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    setIsLoading(true);
+
     await postBlog(
       titleRef.current?.value,
       contentRef.current?.value,
@@ -53,7 +59,12 @@ const Page = () => {
 
     router.push("/todos");
     router.refresh();
+    setIsLoading(false);
   };
+
+  // if (isLoading) {
+  //   return <LoadingSpinner />;
+  // }
 
   return (
     <form

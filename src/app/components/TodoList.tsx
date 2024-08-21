@@ -2,10 +2,13 @@
 
 import { Todo } from "@prisma/client";
 import Link from "next/link";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { getStatusStyle } from "../lib/getStatusStyle";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { filteredTodoListState, todoListState } from "../atoms/todoListAtom";
+import LoadingSpinner from "./LoadingSpinner";
+import { loadingState } from "../atoms/loadingAtom";
+import FilterTodo from "./FilterTodo";
 
 async function fetchAllTodos() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/todo`, {
@@ -26,48 +29,63 @@ async function fetchAllTodos() {
 }
 
 const TodoList = () => {
+  const [isLoading, setIsLoading] = useRecoilState(loadingState);
   const setTodoListState = useSetRecoilState(todoListState);
   const sortedTodoList = useRecoilValue(filteredTodoListState);
 
   useEffect(() => {
     const getTodoListData = async () => {
-      const todos = await fetchAllTodos();
-      //読み込み時は降順にリストを並べる
-      const descTodos = todos.sort(
-        (a: Todo, b: Todo) =>
-          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-      );
-      setTodoListState(descTodos);
+      setIsLoading(true);
+      try {
+        const todos = await fetchAllTodos();
+        //読み込み時は降順にリストを並べる
+        const descTodos = todos.sort(
+          (a: Todo, b: Todo) =>
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        );
+        setTodoListState(descTodos);
+      } catch (error) {
+        console.error("データの取得に失敗しました:", error);
+      } finally {
+        setIsLoading(false);
+      }
     };
 
     getTodoListData();
   }, []);
 
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
+
   return (
-    <ul className="pb-2">
-      {sortedTodoList.map((todo: Todo) => (
-        <li
-          key={todo.id}
-          className="flex flex-col bg-white p-4 mb-4 shadow-lg hover:shadow-none hover:translate-y-1 transition-all duration-100"
-        >
-          <Link href={`/todos/${todo.id}`} className="flex flex-col">
-            <div className="flex pb-2 border-b-2">
-              <span
-                className={`p-1 rounded-md ${getStatusStyle(todo.statusId)}`}
-              >
-                {todo.statusName}
-              </span>
-              <p className="p-1 ml-3">{todo.title}</p>
-            </div>
-            <p className="pt-2">{todo.content}</p>
-            <small className="text-end pt-2">
-              最終更新日時：
-              {String(new Date(todo.createdAt).toLocaleString())}
-            </small>
-          </Link>
-        </li>
-      ))}
-    </ul>
+    <>
+      <FilterTodo />
+      <ul className="pb-2">
+        {sortedTodoList.map((todo: Todo) => (
+          <li
+            key={todo.id}
+            className="flex flex-col bg-white p-4 mb-4 shadow-lg hover:shadow-none hover:translate-y-1 transition-all duration-100"
+          >
+            <Link href={`/todos/${todo.id}`} className="flex flex-col">
+              <div className="flex pb-2 border-b-2">
+                <span
+                  className={`p-1 rounded-md ${getStatusStyle(todo.statusId)}`}
+                >
+                  {todo.statusName}
+                </span>
+                <p className="p-1 ml-3">{todo.title}</p>
+              </div>
+              <p className="pt-2">{todo.content}</p>
+              <small className="text-end pt-2">
+                最終更新日時：
+                {String(new Date(todo.createdAt).toLocaleString())}
+              </small>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </>
   );
 };
 
