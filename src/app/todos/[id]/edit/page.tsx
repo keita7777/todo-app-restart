@@ -1,9 +1,12 @@
 "use client";
 
+import { loadingState } from "@/app/atoms/loadingAtom";
+import LoadingSpinner from "@/app/components/LoadingSpinner";
 import { getStatusName } from "@/app/lib/getStatusName";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useRef } from "react";
+import { useRecoilState } from "recoil";
 
 const getBlogById = async (id: string) => {
   const res = await fetch(
@@ -52,33 +55,50 @@ const EditPage = ({ params }: { params: { id: string } }) => {
   const titleRef = useRef<HTMLInputElement | null>(null);
   const contentRef = useRef<HTMLTextAreaElement | null>(null);
   const statusRef = useRef<HTMLSelectElement | null>(null);
+  const [isLoading, setIsLoading] = useRecoilState(loadingState);
 
   const handleUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    await editBlog(
-      titleRef.current?.value,
-      contentRef.current?.value,
-      statusRef.current?.value,
-      getStatusName(statusRef.current?.value),
-      params.id
-    );
-
-    router.push("/todos");
-    router.refresh();
+    setIsLoading(true);
+    try {
+      await editBlog(
+        titleRef.current?.value,
+        contentRef.current?.value,
+        statusRef.current?.value,
+        getStatusName(statusRef.current?.value),
+        params.id
+      );
+    } catch (error) {
+      console.error("データの取得に失敗しました:", error);
+    } finally {
+      router.push("/todos");
+      router.refresh();
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
-    getBlogById(params.id)
-      .then((data) => {
-        if (titleRef.current && contentRef.current && statusRef.current) {
-          titleRef.current.value = data.title;
-          contentRef.current.value = data.content;
-          statusRef.current.value = data.statusId;
-        }
-      })
-      .catch((err) => {});
+    setIsLoading(true);
+    try {
+      getBlogById(params.id)
+        .then((data) => {
+          if (titleRef.current && contentRef.current && statusRef.current) {
+            titleRef.current.value = data.title;
+            contentRef.current.value = data.content;
+            statusRef.current.value = data.statusId;
+          }
+        })
+        .catch((err) => {});
+    } catch (error) {
+      console.error("データの取得に失敗しました:", error);
+    } finally {
+      setIsLoading(false);
+    }
   }, [params.id]);
+
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <form
